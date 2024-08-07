@@ -14,7 +14,6 @@ use App\Models\Asset;
 use App\Models\User;
 use App\Notifications\FirstAdminNotification;
 use App\Notifications\MailTest;
-use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
@@ -129,11 +128,11 @@ class SettingsController extends Controller
     protected function dotEnvFileIsExposed() : bool
     {
         try {
-            return Http::timeout(10)
+            return Http::withoutVerifying()->timeout(10)
                 ->accept('*/*')
                 ->get(URL::to('.env'))
                 ->successful();
-        } catch (HttpClientException $e) {
+        } catch (\Exception $e) {
             Log::debug($e->getMessage());
             return true;
         }
@@ -325,6 +324,7 @@ class SettingsController extends Controller
 
         $setting->full_multiple_companies_support = $request->input('full_multiple_companies_support', '0');
         $setting->unique_serial = $request->input('unique_serial', '0');
+        $setting->shortcuts_enabled = $request->input('shortcuts_enabled', '0');
         $setting->show_images_in_email = $request->input('show_images_in_email', '0');
         $setting->show_archived_in_list = $request->input('show_archived_in_list', '0');
         $setting->dashboard_message = $request->input('dashboard_message');
@@ -1256,7 +1256,7 @@ class SettingsController extends Controller
                 DB::table('users')->update(['remember_token' => null]);
                 Auth::logout();
 
-                return redirect()->route('login')->with('success', 'Your system has been restored. Please login again.');
+                return redirect()->route('login')->with('success', trans('admin/settings/message.restore.success'));
             } else {
                 return redirect()->route('settings.backups.index')->with('error', trans('admin/settings/message.backup.file_not_found'));
             }
