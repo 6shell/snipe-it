@@ -13,6 +13,8 @@
             data-id-table="{{ str_slug($object->name ?? $object->id) }}UploadsTable"
             id="{{ str_slug($object->name ?? $object->id) }}UploadsTable"
             data-search="true"
+            data-search-highlight="true"
+            data-show-print="true"
             data-pagination="true"
             data-side-pagination="client"
             data-show-columns="true"

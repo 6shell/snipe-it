@@ -440,6 +440,7 @@
                         id="seatsTable"
                         data-pagination="true"
                         data-search="false"
+                        data-show-print="true"
                         data-side-pagination="server"
                         data-show-columns="true"
                         data-show-fullscreen="true"
@@ -489,6 +490,9 @@
                       data-show-refresh="true"
                       data-show-export="true"
                       data-sort-order="desc"
+                      data-search="true"
+                      data-search-highlight="true"
+                      data-show-print="true"
                       data-export-options='{
                        "fileName": "export-{{ str_slug($license->name) }}-history-{{ date('Y-m-d') }}",
                        "ignoreColumn": ["actions","image","change","checkbox","checkincheckout","icon"]

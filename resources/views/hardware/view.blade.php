@@ -405,12 +405,9 @@
                                         </ul>
                                     </div>
                                 @endif
-                                    @if  ($snipeSettings->qr_code=='1')
-                                        <div class="col-md-12 text-center" style="padding-top: 15px;">
-                                            <img src="{{ config('app.url') }}/hardware/{{ $asset->id }}/qr_code" class="img-thumbnail" style="height: 150px; width: 150px; margin-right: 10px;" alt="QR code for {{ $asset->getDisplayNameAttribute() }}">
-                                        </div>
-                                    @endif
-
+                                    <div class="col-md-12 text-center" style="padding-top: 15px;">
+                                        <img src="{{ config('app.url') }}/hardware/{{ $asset->id }}/qr_code" class="img-thumbnail" style="height: 150px; width: 150px; margin-right: 10px;" alt="QR code for {{ $asset->getDisplayNameAttribute() }}">
+                                    </div>
                                 <br><br>
                             </div>
 
@@ -702,7 +699,7 @@
                                     </div>
 
                                     <!-- byod -->
-                                    <div class="row">
+                                    <div class="row byod">
                                         <div class="col-md-3">
                                             <strong>{{ trans('general.byod') }}</strong>
                                         </div>
@@ -1285,6 +1282,8 @@
                                                 data-pagination="true"
                                                 data-id-table="assetsTable"
                                                 data-search="true"
+                                                data-search-highlight="true"
+                                                data-show-print="true"
                                                 data-side-pagination="server"
                                                 data-show-columns="true"
                                                 data-show-fullscreen="true"
@@ -1327,6 +1326,8 @@
                                 data-pagination="true"
                                 data-id-table="accessoriesAssignedListingTable"
                                 data-search="true"
+                                data-search-highlight="true"
+                                data-show-print="true"
                                 data-side-pagination="server"
                                 data-show-columns="true"
                                 data-show-export="true"
@@ -1363,6 +1364,8 @@
                                         data-pagination="true"
                                         data-id-table="assetMaintenancesTable"
                                         data-search="true"
+                                        data-search-highlight="true"
+                                        data-show-print="true"
                                         data-side-pagination="server"
                                         data-toolbar="#maintenance-toolbar"
                                         data-show-columns="true"
@@ -1392,6 +1395,9 @@
                                     data-pagination="true"
                                     data-id-table="asseAuditHistory"
                                     data-search="true"
+                                    data-search-highlight="true"
+                                    data-show-print="true"
+                                    data-show-print="true"
                                     data-side-pagination="server"
                                     data-show-columns="true"
                                     data-show-fullscreen="true"
@@ -1437,6 +1443,8 @@
                                         data-pagination="true"
                                         data-id-table="assetHistory"
                                         data-search="true"
+                                        data-search-highlight="true"
+                                        data-show-print="true"
                                         data-side-pagination="server"
                                         data-show-columns="true"
                                         data-show-fullscreen="true"
