@@ -30,14 +30,20 @@
                       :selected="old($field->db_column_name(),(isset($item) ? Helper::gracefulDecrypt($field, $item->{$field->db_column_name()}) : $field->defaultValue($model->id)))"
                       class="format form-control"
                   />
+                  <div class="col-md-5">
+                      <label class="form-control">
+                          <input type="checkbox" name="null_asset_eol_date" value="1">
+                          {{ trans_choice('general.set_to_null', count($assets),['selection_count' => count($assets)]) }}
+                      </label>
+                  </div>
 
               @elseif ($field->element=='textarea')
                 @if($field->is_unique)
                     <input type="text" class="form-control" disabled value="{{ trans('/admin/hardware/form.bulk_update_custom_field_unique') }}">
                 @endif
-                @if(!$field->is_unique) 
+                @if(!$field->is_unique)
                     <textarea class="col-md-6 form-control" id="{{ $field->db_column_name() }}" name="{{ $field->db_column_name() }}">{{ old($field->db_column_name(),(isset($item) ? Helper::gracefulDecrypt($field, $item->{$field->db_column_name()}) : $field->defaultValue($model->id))) }}</textarea>
-                @endif 
+                @endif
               @elseif ($field->element=='checkbox')
                     <!-- Checkboxes -->
                   @foreach ($field->formatFieldValuesAsArray() as $key => $value)
@@ -45,7 +51,6 @@
                           <input type="checkbox" value="{{ $value }}" name="{{ $field->db_column_name() }}[]" {{  isset($item) ? (in_array($value, array_map('trim', explode(',', $item->{$field->db_column_name()}))) ? ' checked="checked"' : '') : (old($field->db_column_name()) != '' ? ' checked="checked"' : (in_array($key, array_map('trim', explode(',', $field->defaultValue($model->id)))) ? ' checked="checked"' : '')) }}>
                           {{ $value }}
                       </label>
-
                   @endforeach
             @elseif ($field->element=='radio')
             @foreach ($field->formatFieldValuesAsArray() as $value)
@@ -56,7 +61,11 @@
                   </label>
 
             @endforeach
-
+                <button type="button"
+                        class="btn btn-default btn-xs clear-radio"
+                        data-target-name="{{ $field->db_column_name() }}">
+                    {{ trans('/admin/hardware/general.clear') }}
+                </button>
             @endif
 
             @else
@@ -115,8 +124,14 @@
         </div>
         @endif
 
-
+        <div class="col-md-5">
+            <label class="form-control">
+                <input type="checkbox" name="{{ 'null'.$field->db_column_name() }}" value="1">
+                {{ trans_choice('general.set_to_null', count($assets),['selection_count' => count($assets)]) }}
+            </label>
+        </div>
     </div>
-  @endforeach
+
+    @endforeach
 @endif
- @endforeach 
+ @endforeach
